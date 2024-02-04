@@ -1,10 +1,8 @@
 from flask import Flask, redirect
-from flask_socketio import SocketIO
 from urlshortener import logic
 from flask import request
 
 app = Flask(__name__)
-socketio = SocketIO(app)
 
 
 @app.route("/")
@@ -28,6 +26,4 @@ def get_url(hash):
     return redir
 
 
-socketio.run(
-    app, "0.0.0.0", 5050, use_reloader=True, log_output=True, allow_unsafe_werkzeug=True
-)
+app.run("0.0.0.0", 5050, True)

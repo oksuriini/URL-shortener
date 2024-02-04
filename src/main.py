@@ -1,19 +1,22 @@
-from flask import Flask, redirect
+import os
+from flask import Flask, redirect, render_template
 from urlshortener import logic
 from flask import request
 
 app = Flask(__name__)
 
+templates = os.path.dirname(__file__)
+
 
 @app.route("/")
 def main_page():
-    return "Hello, insert your url to be shortened TODO THIS PART"
+    return render_template("index.html")
 
 
-@app.post("/short/")
+@app.route("/short/")
 def shorten_app():
-    json = request.get_json()
-    url = json["url"]
+    url = request.args.get("url")
+    print(url)
     return logic.shorten(url)
 
 
@@ -26,4 +29,4 @@ def get_url(hash):
     return redir
 
 
-app.run("0.0.0.0", 5050, True)
+app.run("0.0.0.0", logic.PORT, True)

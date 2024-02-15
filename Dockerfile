@@ -12,6 +12,6 @@ RUN python -m venv .venv
 RUN . .venv/bin/activate
 RUN pip install --no-cache-dir -r requirements.txt
 
-EXPOSE 3000
+EXPOSE 5050
 
 CMD [ "flask", "run", "--host=0.0.0.0" ]

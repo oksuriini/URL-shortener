@@ -15,7 +15,10 @@ def main_page():
 
 @app.route("/short/")
 def shorten_app():
-    url = request.args.get("url")
+    if request.args.get("url"):
+        url = request.args.get("url")
+    else:
+        url = ""
     print(url)
     return logic.shorten(url)
 

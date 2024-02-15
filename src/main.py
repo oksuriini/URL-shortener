@@ -7,6 +7,11 @@ app = Flask(__name__)
 
 templates = os.path.dirname(__file__)
 
+if os.getenv("FLASK_HOST"):
+    HOST = os.getenv("FLASK_HOST")
+else:
+    HOST = "0.0.0.0"
+
 
 @app.route("/")
 def main_page():
@@ -32,4 +37,4 @@ def get_url(hash):
     return redir
 
 
-app.run("0.0.0.0", logic.PORT, True)
+app.run(f"{HOST}", logic.PORT, True)

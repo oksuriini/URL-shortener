@@ -9,9 +9,14 @@ WORKDIR /home/python/programfiles
 COPY . .
 
 RUN python -m venv .venv
+
 RUN . .venv/bin/activate
+
+ENV MONGODB_URL "mongodb"
+
 RUN pip install --no-cache-dir -r requirements.txt
 
 EXPOSE 5050
+EXPOSE 27017
 
-CMD [ "flask", "run", "--host=0.0.0.0" ]
+CMD [ "python", "src/main.py"]

@@ -1,11 +1,19 @@
+import os
 from socket import error
 import pymongo
+
+CONNECTION_NAME = os.getenv("MONGODB_URL")
+if os.getenv("MONGODB_PORT"):
+    CONNECTION_PORT = os.getenv("MONGODB_PORT")
+else:
+    print("MongoDB port not provided defaulting to 27017")
+    CONNECTION_PORT = "27017"
 
 
 def insert_url_info(hash: str, url: str):
     res = ""
     try:
-        CLIENT = pymongo.MongoClient("mongodb://localhost:27017")
+        CLIENT = pymongo.MongoClient(f"mongodb://{CONNECTION_NAME}:{CONNECTION_PORT}")
         DB = CLIENT["database"]
         COLLECTION = DB["links"]
         link_dict = {"hash": hash, "url": url}
